@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build && cp -r dist docs",
+    "rebuild": "vite build && rm -R docs && cp -r dist docs",
     "preview": "vite preview",
     "lint": "run-p lint:*",
     "lint:tsc": "tsc --noEmit",
