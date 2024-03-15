@@ -1,30 +1,35 @@
+import GitHub from "./assets/GitHub.svg";
+import Instagram from "./assets/Instagram.svg";
+import Qiita from "./assets/Qiita.png";
+import X from "./assets/X.svg";
+import Zenn from "./assets/Zenn.svg";
 import { Social } from "./types";
 
 const socials: Social[] = [
   {
     service: "X",
     url: "https://twitter.com/",
-    logo: "../public/X.svg",
+    logo: X,
   },
   {
     service: "Instagram",
     url: "https://www.instagram.com/",
-    logo: "../public/Instagram.svg",
+    logo: Instagram,
   },
   {
     service: "GitHub",
     url: "https://github.com/",
-    logo: "../public/GitHub.svg",
+    logo: GitHub,
   },
   {
     service: "Zenn",
     url: "https://zenn.dev/",
-    logo: "../public/Zenn.svg",
+    logo: Zenn,
   },
   {
     service: "Qiita",
     url: "https://qiita.com/",
-    logo: "../public/Qiita.png",
+    logo: Qiita,
   },
   {
     service: "AtCoder",
