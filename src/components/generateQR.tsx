@@ -66,10 +66,6 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
     qrCode.update(options);
   }, [qrCode, options]);
 
-  useEffect(() => {
-    console.log(url, logo, QRcolor);
-  }, [url, logo, QRcolor]);
-
   const onDataChange = (event: ChangeEvent<HTMLInputElement>) => {
     setOptions((options) => ({
       ...options,
