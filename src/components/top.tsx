@@ -15,8 +15,8 @@ const Top: React.FC = () => {
     setId(id);
   };
 
-  const generateQRcode = (url: string, xId: string) => {
-    setCompleteUrl(url + xId);
+  const generateQRcode = (url: string, id: string) => {
+    setCompleteUrl(url + id);
     setIsGenerated(true);
     setUrl("");
     setId("");
@@ -27,7 +27,7 @@ const Top: React.FC = () => {
     console.log("logo" + logo);
   }, [completeUrl, logo]);
 
-  const urlHander = (social: Social) => {
+  const urlHandler = (social: Social) => {
     setUrl(social.url);
     setLogo(social.logo);
     setIsGenerated(false);
@@ -39,7 +39,7 @@ const Top: React.FC = () => {
     <div>
       <div>
         <select
-          onChange={(e) => urlHander(socials[e.target.selectedIndex - 1])}
+          onChange={(e) => urlHandler(socials[e.target.selectedIndex - 1])}
         >
           <option value="">Select SNS</option>
           {socials.map((social, index) => (
