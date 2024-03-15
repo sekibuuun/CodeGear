@@ -4,6 +4,8 @@ import { GenerateQR } from "./generateQR";
 import { socials } from "../sns";
 import { Social } from "../types";
 
+import "../styles/top.css";
+
 const Top: React.FC = () => {
   const [userId, setUserId] = useState<string>("");
   const [url, setUrl] = useState<string>("");

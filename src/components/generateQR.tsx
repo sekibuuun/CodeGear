@@ -12,6 +12,8 @@ import QRCodeStyling, {
   Options,
 } from "qr-code-styling-2";
 
+import "../styles/generateQR.css";
+
 type GenerateQRProps = {
   url: string;
   logo: React.ReactNode | string | null;
