@@ -5,21 +5,21 @@ import { socials } from "../sns";
 import { Social } from "../types";
 
 const Top: React.FC = () => {
-  const [id, setId] = useState<string>("");
+  const [userId, serUserId] = useState<string>("");
   const [url, setUrl] = useState<string>("");
   const [logo, setLogo] = useState<React.ReactNode | string | null>(null);
   const [completeUrl, setCompleteUrl] = useState<string>("");
   const [isGenerated, setIsGenerated] = useState<boolean>(false);
 
-  const idHandler = (id: string) => {
-    setId(id);
+  const idHandler = (userId: string) => {
+    serUserId(userId);
   };
 
-  const generateQRcode = (url: string, id: string) => {
-    setCompleteUrl(url + id);
+  const generateQRcode = (url: string, userId: string) => {
+    setCompleteUrl(url + userId);
     setIsGenerated(true);
     setUrl("");
-    setId("");
+    serUserId("");
   };
 
   const urlHandler = (social: Social) => {
@@ -44,13 +44,14 @@ const Top: React.FC = () => {
       </div>
       <div>
         <input
+          aria-label="userId"
           type="text"
-          value={id}
+          value={userId}
           onChange={(e) => idHandler(e.target.value)}
         />
       </div>
       <div>
-        <button onClick={() => generateQRcode(url, id)}>
+        <button onClick={() => generateQRcode(url, userId)}>
           Generate QR code
         </button>
       </div>
