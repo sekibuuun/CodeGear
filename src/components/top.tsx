@@ -5,21 +5,21 @@ import { socials } from "../sns";
 import { Social } from "../types";
 
 const Top: React.FC = () => {
-  const [userId, serUserId] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
   const [url, setUrl] = useState<string>("");
   const [logo, setLogo] = useState<React.ReactNode | string | null>(null);
   const [completeUrl, setCompleteUrl] = useState<string>("");
   const [isGenerated, setIsGenerated] = useState<boolean>(false);
 
   const idHandler = (userId: string) => {
-    serUserId(userId);
+    setUserId(userId);
   };
 
   const generateQRcode = (url: string, userId: string) => {
     setCompleteUrl(url + userId);
     setIsGenerated(true);
     setUrl("");
-    serUserId("");
+    setUserId("");
   };
 
   const urlHandler = (social: Social) => {
@@ -28,12 +28,17 @@ const Top: React.FC = () => {
     setIsGenerated(false);
   };
 
+  const onSelected = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIndex = e.target.selectedIndex - 1;
+    if (selectedIndex >= 0) {
+      urlHandler(socials[selectedIndex]);
+    }
+  };
+
   return (
     <div>
       <div>
-        <select
-          onChange={(e) => urlHandler(socials[e.target.selectedIndex - 1])}
-        >
+        <select onChange={(e) => onSelected(e)}>
           <option value="">Select SNS</option>
           {socials.map((social, index) => (
             <option key={index} value={social.service}>
