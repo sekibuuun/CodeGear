@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import { GenerateQR } from "./generateQR";
 import { socials } from "../sns";
 import { Social } from "../types";
 
@@ -8,6 +9,7 @@ const Top: React.FC = () => {
   const [url, setUrl] = useState<string>("");
   const [logo, setLogo] = useState<React.ReactNode | string | null>(null);
   const [completeUrl, setCompleteUrl] = useState<string>("");
+  const [isGenerated, setIsGenerated] = useState<boolean>(false);
 
   const idHandler = (id: string) => {
     setId(id);
@@ -15,6 +17,7 @@ const Top: React.FC = () => {
 
   const generateQRcode = (url: string, xId: string) => {
     setCompleteUrl(url + xId);
+    setIsGenerated(true);
     setUrl("");
     setId("");
   };
@@ -22,11 +25,12 @@ const Top: React.FC = () => {
   useEffect(() => {
     console.log(completeUrl);
     console.log("logo" + logo);
-  }, [completeUrl]);
+  }, [completeUrl, logo]);
 
   const urlHander = (social: Social) => {
     setUrl(social.url);
     setLogo(social.logo);
+    setIsGenerated(false);
     console.log(social.url);
     console.log(social.logo);
   };
@@ -57,6 +61,7 @@ const Top: React.FC = () => {
           Generate QR code
         </button>
       </div>
+      {isGenerated && <GenerateQR url={completeUrl} logo={logo} />}
     </div>
   );
 };
