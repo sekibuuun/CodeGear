@@ -1,93 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { socials } from "../sns";
+import { Social } from "../types";
 
 const Top: React.FC = () => {
-  const [xId, setXId] = useState<string>("");
-  const [instagramId, setInstagramId] = useState<string>("");
-  const [githubId, setGithubId] = useState<string>("");
-  const [zennId, setZennId] = useState<string>("");
-  const [qiitaId, setQiitaId] = useState<string>("");
-  const [atcoderId, setAtcoderId] = useState<string>("");
+  const [id, setId] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
+  const [logo, setLogo] = useState<React.ReactNode | string | null>(null);
+  const [completeUrl, setCompleteUrl] = useState<string>("");
 
-  const xIdHandler = (xId: string) => {
-    setXId(xId);
-    console.log(xId);
+  const idHandler = (id: string) => {
+    setId(id);
   };
 
-  const instagramIdHandler = (instagramId: string) => {
-    setInstagramId(instagramId);
+  const generateQRcode = (url: string, xId: string) => {
+    setCompleteUrl(url + xId);
+    setUrl("");
+    setId("");
   };
 
-  const githubIdHandler = (githubId: string) => {
-    setGithubId(githubId);
-  };
+  useEffect(() => {
+    console.log(completeUrl);
+    console.log("logo" + logo);
+  }, [completeUrl]);
 
-  const zennIdHandler = (zennId: string) => {
-    setZennId(zennId);
-  };
-
-  const qiitaIdHandler = (qiitaId: string) => {
-    setQiitaId(qiitaId);
-  };
-
-  const atcoderIdHandler = (atcoderId: string) => {
-    setAtcoderId(atcoderId);
+  const urlHander = (social: Social) => {
+    setUrl(social.url);
+    setLogo(social.logo);
+    console.log(social.url);
+    console.log(social.logo);
   };
 
   return (
     <div>
       <div>
-        <label htmlFor="xId">X</label>
+        <select
+          onChange={(e) => urlHander(socials[e.target.selectedIndex - 1])}
+        >
+          <option value="">Select SNS</option>
+          {socials.map((social, index) => (
+            <option key={index} value={social.service}>
+              {social.service}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
         <input
-          id="xId"
           type="text"
-          value={xId}
-          onChange={(e) => xIdHandler(e.target.value)}
+          value={id}
+          onChange={(e) => idHandler(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="instagramId">Instagram</label>
-        <input
-          id="instagramId"
-          type="text"
-          value={instagramId}
-          onChange={(e) => instagramIdHandler(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="githubId">GitHub</label>
-        <input
-          id="githubId"
-          type="text"
-          value={githubId}
-          onChange={(e) => githubIdHandler(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="zennId">Zenn</label>
-        <input
-          id="zennId"
-          type="text"
-          value={zennId}
-          onChange={(e) => zennIdHandler(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="qiitaId">Qiita</label>
-        <input
-          id="qiitaId"
-          type="text"
-          value={qiitaId}
-          onChange={(e) => qiitaIdHandler(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="atcoderId">AtCoder</label>
-        <input
-          id="atcoderId"
-          type="text"
-          value={atcoderId}
-          onChange={(e) => atcoderIdHandler(e.target.value)}
-        />
+        <button onClick={() => generateQRcode(url, id)}>
+          Generate QR code
+        </button>
       </div>
     </div>
   );
