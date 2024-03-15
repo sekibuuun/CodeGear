@@ -15,11 +15,13 @@ import QRCodeStyling, {
 type GenerateQRProps = {
   url: string;
   logo: React.ReactNode | string | null;
+  QRcolor: string;
 };
 
 const GenerateQR: React.FC<GenerateQRProps> = ({
   url,
   logo,
+  QRcolor,
 }: GenerateQRProps) => {
   const [options, setOptions] = useState<Options>({
     width: 300,
@@ -33,19 +35,19 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
       mode: "Byte" as Mode,
       errorCorrectionLevel: "Q" as ErrorCorrectionLevel,
     },
+    backgroundOptions: {
+      color: "#ffffff",
+    },
     dotsOptions: {
-      color: "#000000",
+      color: QRcolor,
       type: "dots" as DotType,
     },
-    backgroundOptions: {
-      color: "#5FD4F3",
-    },
     cornersSquareOptions: {
-      color: "#222222",
+      color: QRcolor,
       type: "extra-rounded" as CornerSquareType,
     },
     cornersDotOptions: {
-      color: "#222222",
+      color: QRcolor,
       type: "dot" as CornerDotType,
     },
   });
