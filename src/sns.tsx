@@ -1,34 +1,30 @@
-import { FaXTwitter, FaInstagram, FaGithub } from "react-icons/fa6";
-import { SiZenn } from "react-icons/si";
-
 import { Social } from "./types";
-import Qiita from "../public/favicon.png";
 
 const socials: Social[] = [
   {
     service: "X",
     url: "https://twitter.com/",
-    logo: <FaXTwitter />,
+    logo: "../public/X.svg",
   },
   {
     service: "Instagram",
     url: "https://www.instagram.com/",
-    logo: <FaInstagram />,
+    logo: "../public/Instagram.svg",
   },
   {
     service: "GitHub",
     url: "https://github.com/",
-    logo: <FaGithub />,
+    logo: "../public/GitHub.svg",
   },
   {
     service: "Zenn",
     url: "https://zenn.dev/",
-    logo: <SiZenn />,
+    logo: "../public/Zenn.svg",
   },
   {
     service: "Qiita",
     url: "https://qiita.com/",
-    logo: <Qiita />,
+    logo: "../public/Qiita.png",
   },
   {
     service: "AtCoder",
