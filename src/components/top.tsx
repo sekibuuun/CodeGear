@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { GenerateQR } from "./generateQR";
 import { socials } from "../sns";
@@ -22,17 +22,10 @@ const Top: React.FC = () => {
     setId("");
   };
 
-  useEffect(() => {
-    console.log(completeUrl);
-    console.log("logo" + logo);
-  }, [completeUrl, logo]);
-
   const urlHandler = (social: Social) => {
     setUrl(social.url);
     setLogo(social.logo);
     setIsGenerated(false);
-    console.log(social.url);
-    console.log(social.logo);
   };
 
   return (
