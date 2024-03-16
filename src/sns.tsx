@@ -7,6 +7,12 @@ import { Social } from "./types";
 
 const socials: Social[] = [
   {
+    service: "None",
+    url: "",
+    logo: null,
+    color: "#000000",
+  },
+  {
     service: "X",
     url: "https://twitter.com/",
     logo: X,
