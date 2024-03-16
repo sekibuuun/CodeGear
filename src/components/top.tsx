@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { GenerateQR } from "./generateQR";
 import { socials } from "../sns";
-import { Social } from "../types";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,48 +12,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTop } from "@/hooks/useTop";
 
 const Top: React.FC = () => {
-  const [userId, setUserId] = useState<string>("");
-  const [url, setUrl] = useState<string>("");
-  const [logo, setLogo] = useState<React.ReactNode | string | null>(null);
-  const [color, setColor] = useState<string>("");
-  const [completeUrl, setCompleteUrl] = useState<string>("");
-  const [isGenerated, setIsGenerated] = useState<boolean>(false);
-  const [isInputUrlDisabled, setIsInputUrlDisabled] = useState<boolean>(true);
-  const [isInputIdDisabled, setIsInputIdDisabled] = useState<boolean>(true);
-
-  const idHandler = (userId: string) => {
-    setUserId(userId);
-  };
-
-  const generateQRcode = (url: string, userId: string) => {
-    setCompleteUrl(url + userId);
-    setIsGenerated(true);
-    setUrl("");
-    setUserId("");
-  };
-
-  const urlHandler = (social: Social) => {
-    setUrl(social.url);
-    setLogo(social.logo);
-    setColor(social.color);
-    setIsGenerated(false);
-  };
-
-  const onSelected = (value: string) => {
-    const selectedSocial = socials.find((social) => social.service === value);
-    if (selectedSocial) {
-      urlHandler(selectedSocial);
-      setIsInputUrlDisabled(value !== "None");
-      setIsInputIdDisabled(value === "None");
-    }
-  };
+  const topHooks = useTop();
 
   return (
     <div className="m-10 flex flex-col gap-5">
       <div>
-        <Select onValueChange={onSelected}>
+        <Select onValueChange={topHooks.onSelected}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Select SNS" />
           </SelectTrigger>
@@ -72,30 +38,35 @@ const Top: React.FC = () => {
           placeholder="Enter your URL"
           aria-label="url"
           type="text"
-          value={url + userId}
-          onChange={(e) => setUrl(e.target.value)}
-          disabled={isInputUrlDisabled}
+          value={`${topHooks.social.url || topHooks.emptyUrl}${topHooks.userId || ""}`}
+          onChange={(e) => topHooks.urlHandler(e.target.value)}
+          disabled={topHooks.isInputUrlDisabled}
         />
         <div className="flex gap-10">
           <Input
             placeholder="Enter your userId"
             aria-label="userId"
             type="text"
-            value={userId}
-            onChange={(e) => idHandler(e.target.value)}
+            value={topHooks.userId}
+            onChange={(e) => topHooks.idHandler(e.target.value)}
             className="flex-1"
-            disabled={isInputIdDisabled}
+            disabled={topHooks.isInputIdDisabled}
           />
           <Button
-            onClick={() => generateQRcode(url, userId)}
+            onClick={() =>
+              topHooks.generateQRcode(topHooks.social, topHooks.userId)
+            }
             className="flex-none bg-gray-800"
           >
             Generate QR
           </Button>
         </div>
       </div>
-      {isGenerated && (
-        <GenerateQR url={completeUrl} logo={logo} QRcolor={color} />
+      {topHooks.isDisplayQR && (
+        <GenerateQR
+          url={topHooks.completeUrl || topHooks.emptyUrl}
+          social={topHooks.social}
+        />
       )}
     </div>
   );

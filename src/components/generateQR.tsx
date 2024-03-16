@@ -1,16 +1,6 @@
-import React, { useState, useEffect, useRef, ChangeEvent } from "react";
+import React from "react";
 
-import QRCodeStyling, {
-  DrawType,
-  TypeNumber,
-  Mode,
-  ErrorCorrectionLevel,
-  DotType,
-  CornerSquareType,
-  CornerDotType,
-  Extension,
-  Options,
-} from "qr-code-styling-2";
+import { Social } from "../types";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,92 +11,35 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useGenerateQR } from "@/hooks/useGenerateQR";
 
 type GenerateQRProps = {
   url: string;
-  logo: React.ReactNode | string | null;
-  QRcolor: string;
+  social: Social;
 };
 
 const GenerateQR: React.FC<GenerateQRProps> = ({
   url,
-  logo,
-  QRcolor,
+  social,
 }: GenerateQRProps) => {
-  const [options, setOptions] = useState<Options>({
-    width: 300,
-    height: 300,
-    type: "svg" as DrawType,
-    data: url,
-    image: typeof logo === "string" ? logo : undefined,
-    margin: 10,
-    qrOptions: {
-      typeNumber: 0 as TypeNumber,
-      mode: "Byte" as Mode,
-      errorCorrectionLevel: "Q" as ErrorCorrectionLevel,
-    },
-    backgroundOptions: {
-      color: "#ffffff",
-    },
-    dotsOptions: {
-      color: QRcolor,
-      type: "dots" as DotType,
-    },
-    cornersSquareOptions: {
-      color: QRcolor,
-      type: "extra-rounded" as CornerSquareType,
-    },
-    cornersDotOptions: {
-      color: QRcolor,
-      type: "dot" as CornerDotType,
-    },
-  });
-  const [fileExt, setFileExt] = useState<Extension>("svg");
-  const [qrCode] = useState<QRCodeStyling>(new QRCodeStyling(options));
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      qrCode.append(ref.current);
-    }
-  }, [qrCode, ref]);
-
-  useEffect(() => {
-    if (!qrCode) return;
-    qrCode.update(options);
-  }, [qrCode, options]);
-
-  const onDataChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setOptions((options) => ({
-      ...options,
-      data: event.target.value,
-    }));
-  };
-
-  const onExtensionChange = (value: Extension) => {
-    setFileExt(value);
-  };
-
-  const onDownloadClick = () => {
-    if (!qrCode) return;
-    qrCode.download({
-      extension: fileExt,
-    });
-  };
-
+  const generateQRHooks = useGenerateQR({ url, social });
   return (
     <div className="QRCode">
       <div className="flex justify-center">
-        <div ref={ref} />
+        <div ref={generateQRHooks.ref} />
       </div>
       <div className="flex flex-col gap-5">
         <Input
-          value={options.data}
-          onChange={onDataChange}
+          value={generateQRHooks.options.data}
+          onChange={generateQRHooks.onDataChange}
           className="w-full mt-4"
+          disabled
         />
         <div className="flex gap-5">
-          <Select onValueChange={onExtensionChange} value={fileExt}>
+          <Select
+            onValueChange={generateQRHooks.onExtensionChange}
+            value={generateQRHooks.fileExt}
+          >
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
@@ -116,7 +49,10 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
               <SelectItem value="jpeg">JPEG</SelectItem>
             </SelectContent>
           </Select>
-          <Button className="bg-gray-800" onClick={onDownloadClick}>
+          <Button
+            className="bg-gray-800"
+            onClick={generateQRHooks.onDownloadClick}
+          >
             Download
           </Button>
         </div>
