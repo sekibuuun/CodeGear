@@ -38,7 +38,8 @@ const Top: React.FC = () => {
           placeholder="Enter your URL"
           aria-label="url"
           type="text"
-          value={topHooks.social.url + topHooks.userId}
+          value={`${topHooks.social.url || topHooks.emptyUrl}${topHooks.userId || ""}`}
+          onChange={(e) => topHooks.urlHandler(e.target.value)}
           disabled={topHooks.isInputUrlDisabled}
         />
         <div className="flex gap-10">
@@ -62,7 +63,10 @@ const Top: React.FC = () => {
         </div>
       </div>
       {topHooks.isDisplayQR && (
-        <GenerateQR url={topHooks.completeUrl} social={topHooks.social} />
+        <GenerateQR
+          url={topHooks.completeUrl || topHooks.emptyUrl}
+          social={topHooks.social}
+        />
       )}
     </div>
   );

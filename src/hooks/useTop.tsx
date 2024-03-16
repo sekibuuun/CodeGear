@@ -6,6 +6,7 @@ import { Social } from "../types";
 const useTop = () => {
   const [userId, setUserId] = useState<string>("");
   const [social, setSocial] = useState<Social>({} as Social);
+  const [emptyUrl, setEmptyUrl] = useState<string>("");
   const [completeUrl, setCompleteUrl] = useState<string>("");
   const [isDisplayQR, setIsDisplayQR] = useState<boolean>(false);
   const [isInputUrlDisabled, setIsInputUrlDisabled] = useState<boolean>(true);
@@ -13,6 +14,10 @@ const useTop = () => {
 
   const idHandler = (userId: string) => {
     setUserId(userId);
+  };
+
+  const urlHandler = (url: string) => {
+    setEmptyUrl(url);
   };
 
   const generateQRcode = (social: Social, userId: string) => {
@@ -32,16 +37,19 @@ const useTop = () => {
       socialHandler(selectedSocial);
       setIsInputUrlDisabled(value !== "None");
       setIsInputIdDisabled(value === "None");
+      setEmptyUrl("");
     }
   };
   return {
     userId,
     social,
+    emptyUrl,
     completeUrl,
     isDisplayQR,
     isInputUrlDisabled,
     isInputIdDisabled,
     idHandler,
+    urlHandler,
     generateQRcode,
     socialHandler,
     onSelected,
