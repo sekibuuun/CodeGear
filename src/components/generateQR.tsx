@@ -12,6 +12,16 @@ import QRCodeStyling, {
   Options,
 } from "qr-code-styling-2";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 type GenerateQRProps = {
   url: string;
   logo: React.ReactNode | string | null;
@@ -73,8 +83,8 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
     }));
   };
 
-  const onExtensionChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setFileExt(event.target.value as Extension);
+  const onExtensionChange = (value: Extension) => {
+    setFileExt(value);
   };
 
   const onDownloadClick = () => {
@@ -86,36 +96,33 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
 
   return (
     <div className="QRCode">
-      <div ref={ref} />
-      <div style={styles.inputWrapper}>
-        <input
+      <div className="flex justify-center">
+        <div ref={ref} />
+      </div>
+      <div className="flex flex-col gap-5">
+        <Input
           value={options.data}
           onChange={onDataChange}
-          style={styles.inputBox}
+          className="w-full mt-4"
         />
-        <select onChange={onExtensionChange} value={fileExt}>
-          <option value="svg">SVG</option>
-          <option value="png">PNG</option>
-          <option value="jpeg">JPEG</option>
-        </select>
-        <button onClick={onDownloadClick}>Download</button>
+        <div className="flex gap-5">
+          <Select onValueChange={onExtensionChange} value={fileExt}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="svg">SVG</SelectItem>
+              <SelectItem value="png">PNG</SelectItem>
+              <SelectItem value="jpeg">JPEG</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button className="bg-gray-800" onClick={onDownloadClick}>
+            Download
+          </Button>
+        </div>
       </div>
     </div>
   );
-};
-
-const styles = {
-  inputWrapper: {
-    margin: "20px 0",
-    display: "flex",
-    justifyContent: "space-between",
-    width: "100%",
-    maxWidth: "300px",
-  },
-  inputBox: {
-    flexGrow: 1,
-    marginRight: 20,
-  },
 };
 
 export { GenerateQR };
