@@ -12,6 +12,8 @@ import QRCodeStyling, {
   Options,
 } from "qr-code-styling-2";
 
+import { Social } from "../types";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,21 +26,19 @@ import {
 
 type GenerateQRProps = {
   url: string;
-  logo: React.ReactNode | string | null;
-  QRcolor: string;
+  social: Social;
 };
 
 const GenerateQR: React.FC<GenerateQRProps> = ({
   url,
-  logo,
-  QRcolor,
+  social,
 }: GenerateQRProps) => {
   const [options, setOptions] = useState<Options>({
     width: 300,
     height: 300,
     type: "svg" as DrawType,
     data: url,
-    image: typeof logo === "string" ? logo : undefined,
+    image: typeof social.logo === "string" ? social.logo : undefined,
     margin: 10,
     qrOptions: {
       typeNumber: 0 as TypeNumber,
@@ -49,15 +49,15 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
       color: "#ffffff",
     },
     dotsOptions: {
-      color: QRcolor,
+      color: social.color,
       type: "dots" as DotType,
     },
     cornersSquareOptions: {
-      color: QRcolor,
+      color: social.color,
       type: "extra-rounded" as CornerSquareType,
     },
     cornersDotOptions: {
-      color: QRcolor,
+      color: social.color,
       type: "dot" as CornerDotType,
     },
   });
@@ -75,6 +75,13 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
     if (!qrCode) return;
     qrCode.update(options);
   }, [qrCode, options]);
+
+  useEffect(() => {
+    setOptions((options) => ({
+      ...options,
+      data: url,
+    }));
+  }, [url]);
 
   const onDataChange = (event: ChangeEvent<HTMLInputElement>) => {
     setOptions((options) => ({
@@ -104,6 +111,7 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
           value={options.data}
           onChange={onDataChange}
           className="w-full mt-4"
+          disabled
         />
         <div className="flex gap-5">
           <Select onValueChange={onExtensionChange} value={fileExt}>
