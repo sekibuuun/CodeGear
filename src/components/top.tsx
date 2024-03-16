@@ -14,8 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import "../styles/top.css";
-
 const Top: React.FC = () => {
   const [userId, setUserId] = useState<string>("");
   const [url, setUrl] = useState<string>("");
@@ -50,31 +48,35 @@ const Top: React.FC = () => {
   };
 
   return (
-    <div>
-      <Select onValueChange={onSelected}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select SNS" />
-        </SelectTrigger>
-        <SelectContent>
-          {socials.map((social, index) => (
-            <SelectItem value={social.service} key={index}>
-              {social.service}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+    <div className="m-10 flex flex-col gap-5">
       <div>
+        <Select onValueChange={onSelected}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select SNS" />
+          </SelectTrigger>
+          <SelectContent>
+            {socials.map((social, index) => (
+              <SelectItem value={social.service} key={index}>
+                {social.service}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex gap-10">
         <Input
-          placeholder="Enter your user id"
+          placeholder="Enter your userId"
           aria-label="userId"
           type="text"
           value={userId}
           onChange={(e) => idHandler(e.target.value)}
+          className="flex-1"
         />
-      </div>
-      <div>
-        <Button onClick={() => generateQRcode(url, userId)}>
-          Generate QR code
+        <Button
+          onClick={() => generateQRcode(url, userId)}
+          className="flex-none bg-gray-800"
+        >
+          Generate QR
         </Button>
       </div>
       {isGenerated && (

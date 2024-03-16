@@ -22,8 +22,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import "../styles/generateQR.css";
-
 type GenerateQRProps = {
   url: string;
   logo: React.ReactNode | string | null;
@@ -98,24 +96,30 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
 
   return (
     <div className="QRCode">
-      <div ref={ref} />
-      <div>
+      <div className="flex justify-center">
+        <div ref={ref} />
+      </div>
+      <div className="flex flex-col gap-5">
         <Input
           value={options.data}
           onChange={onDataChange}
           className="w-full mt-4"
         />
-        <Select onValueChange={onExtensionChange} value={fileExt}>
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="svg">SVG</SelectItem>
-            <SelectItem value="png">PNG</SelectItem>
-            <SelectItem value="jpeg">JPEG</SelectItem>
-          </SelectContent>
-        </Select>
-        <Button onClick={onDownloadClick}>Download</Button>
+        <div className="flex gap-5">
+          <Select onValueChange={onExtensionChange} value={fileExt}>
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="svg">SVG</SelectItem>
+              <SelectItem value="png">PNG</SelectItem>
+              <SelectItem value="jpeg">JPEG</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button className="bg-gray-800" onClick={onDownloadClick}>
+            Download
+          </Button>
+        </div>
       </div>
     </div>
   );

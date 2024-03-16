@@ -1,9 +1,10 @@
-import "./styles/App.css";
+import { Header } from "./components/header";
 import { Top } from "./components/top";
 
 function App() {
   return (
     <>
+      <Header />
       <Top />
     </>
   );
