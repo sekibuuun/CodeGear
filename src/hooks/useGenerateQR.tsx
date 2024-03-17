@@ -32,6 +32,9 @@ const useGenerateQR = ({ url, social }: GenerateQRProps) => {
       mode: "Byte" as Mode,
       errorCorrectionLevel: "Q" as ErrorCorrectionLevel,
     },
+    imageOptions: {
+      margin: 20,
+    },
     backgroundOptions: {
       color: "#ffffff",
     },
