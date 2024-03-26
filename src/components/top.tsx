@@ -119,7 +119,11 @@ const Top: React.FC = () => {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="flex-none bg-gray-800">
+            <Button
+              type="submit"
+              className="flex-none bg-gray-800"
+              aria-label="Generate QR code"
+            >
               Generate QR
             </Button>
           </div>
