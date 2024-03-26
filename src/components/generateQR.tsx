@@ -39,7 +39,7 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
             </a>
           </Button>
         </div>
-        <div className="flex gap-5 mx-10">
+        <div className="flex gap-5">
           <Select
             onValueChange={generateQRHooks.onExtensionChange}
             value={generateQRHooks.fileExt}

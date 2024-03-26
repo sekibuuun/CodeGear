@@ -54,11 +54,11 @@ const Top: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="p-10 flex flex-col gap-5">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="m-10 flex flex-col gap-5"
+          className="flex flex-col gap-5"
         >
           <div>
             <Select onValueChange={topHooks.onSelected}>
