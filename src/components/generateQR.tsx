@@ -3,7 +3,6 @@ import React from "react";
 import { Social } from "../types";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -29,12 +28,17 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
         <div ref={generateQRHooks.ref} />
       </div>
       <div className="flex flex-col gap-5">
-        <Input
-          value={generateQRHooks.options.data}
-          onChange={generateQRHooks.onDataChange}
-          className="w-full mt-4"
-          disabled
-        />
+        <div className="flex justify-center">
+          <Button asChild variant="link" className="p-0">
+            <a
+              href={generateQRHooks.options.data}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {generateQRHooks.options.data}
+            </a>
+          </Button>
+        </div>
         <div className="flex gap-5">
           <Select
             onValueChange={generateQRHooks.onExtensionChange}
