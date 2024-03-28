@@ -18,12 +18,12 @@ const Modal: React.FC = () => {
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="link" className="text-white p-0">
-            Sign in
+            {session ? "Sign out" : "Sign in"}
           </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Sign in</DialogTitle>
+            <DialogTitle>{session ? "Sign out" : "Sign in"}</DialogTitle>
           </DialogHeader>
           <DialogDescription>
             {session ? (
