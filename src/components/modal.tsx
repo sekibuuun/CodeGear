@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Github } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
@@ -25,16 +26,25 @@ const Modal: React.FC = () => {
               {session ? "Sign out" : "Sign in"}
             </Button>
           </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
+          <DialogContent className="w-2/3 rounded-lg">
+            <DialogHeader className="text-left">
               <DialogTitle>{session ? "Sign out" : "Sign in"}</DialogTitle>
             </DialogHeader>
             <DialogDescription>
               {session ? (
-                <Button onClick={() => signOut()}>Sign out</Button>
+                <Button
+                  className="text-white flex items-center justify-center w-full"
+                  onClick={() => signOut()}
+                >
+                  Click here
+                </Button>
               ) : (
-                <Button onClick={() => signInWithGithub()}>
-                  Sign in with GitHub
+                <Button
+                  className="text-white flex items-center justify-center w-full"
+                  onClick={() => signInWithGithub()}
+                >
+                  <Github className="w-6 h-6 mr-2 text-white" />
+                  GitHub
                 </Button>
               )}
             </DialogDescription>
