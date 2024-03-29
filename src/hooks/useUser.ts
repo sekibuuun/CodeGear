@@ -4,6 +4,8 @@ import { Session } from "@supabase/supabase-js";
 
 import { supabase } from "../lib/supabase-client";
 
+import toast from "react-hot-toast";
+
 function useUser() {
   const [session, setSession] = useState<Session | null>();
 
@@ -19,12 +21,30 @@ function useUser() {
     };
   }, []);
 
-  function signInWithGithub() {
-    supabase.auth.signInWithOAuth({ provider: "github" });
+  async function signInWithGithub() {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "github",
+      });
+      if (!error) {
+        toast.success("Signed in successfully");
+      }
+    } catch (error: any) {
+      console.error("Error: ", error.message);
+      toast.error("Error signing in");
+    }
   }
 
-  function signOut() {
-    supabase.auth.signOut();
+  async function signOut() {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (!error) {
+        toast.success("Signed out successfully");
+      }
+    } catch (error: any) {
+      console.error("Error: ", error.message);
+      toast.error("Error signing out");
+    }
   }
 
   return {
