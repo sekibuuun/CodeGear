@@ -2,12 +2,15 @@ import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const Icon: React.FC = () => {
+const Icon: React.FC<{ src: string; fallback: string }> = ({
+  src,
+  fallback,
+}) => {
   return (
     <div>
       <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarImage src={src} />
+        <AvatarFallback>{fallback}</AvatarFallback>
       </Avatar>
     </div>
   );
