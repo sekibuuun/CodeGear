@@ -36,6 +36,8 @@ jobs:
         run: npm ci && npm run build
         env:
           PUBLIC_URL: /CodeGear
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
