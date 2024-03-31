@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { useUser } from "@/hooks/useUser";
 
-const Modal: React.FC = () => {
+const Modal: React.FC<{ component: React.ReactNode }> = ({ component }) => {
   const { session, signInWithGithub, signOut } = useUser();
   return (
     <div>
@@ -23,7 +23,7 @@ const Modal: React.FC = () => {
         <Dialog>
           <DialogTrigger asChild>
             <Button variant="link" className="text-white p-0">
-              {session ? "Sign out" : "Sign in"}
+              {component}
             </Button>
           </DialogTrigger>
           <DialogContent className="w-2/3 rounded-lg">
