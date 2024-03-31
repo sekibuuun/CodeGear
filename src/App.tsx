@@ -1,11 +1,11 @@
 import { Header } from "./components/header";
-import { Top } from "./components/top";
+import { Router } from "./routes/router";
 
 function App() {
   return (
     <>
       <Header />
-      <Top />
+      <Router />
     </>
   );
 }
