@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import { Mypage } from "@/components/mypage";
 import { Top } from "@/components/top";
@@ -11,7 +11,11 @@ const Router: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Top />} />
-      {session ? <Route path="/:id" element={<Mypage />} /> : ""}
+      {session ? (
+        <Route path="/:id" element={<Mypage />} />
+      ) : (
+        <Route path="/:id" element={<Navigate to="/" replace />} />
+      )}
     </Routes>
   );
 };
