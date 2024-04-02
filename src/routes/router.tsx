@@ -12,9 +12,9 @@ const Router: React.FC = () => {
     <Routes>
       <Route path="/" element={<Top />} />
       {session ? (
-        <Route path="/:id" element={<Mypage />} />
+        <Route path="/users/:id" element={<Mypage />} />
       ) : (
-        <Route path="/:id" element={<Navigate to="/" replace />} />
+        <Route path="/users/:id" element={<Navigate to="/" replace />} />
       )}
     </Routes>
   );
