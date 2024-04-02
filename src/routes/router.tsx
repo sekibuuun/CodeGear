@@ -10,11 +10,14 @@ const Router: React.FC = () => {
   const { session } = useUser();
   return (
     <Routes>
-      <Route path="/" element={<Top />} />
+      <Route path="/CodeGear" element={<Top />} />
       {session ? (
         <Route path="/users/:id" element={<Mypage />} />
       ) : (
-        <Route path="/users/:id" element={<Navigate to="/" replace />} />
+        <Route
+          path="/users/:id"
+          element={<Navigate to="/CodeGear" replace />}
+        />
       )}
     </Routes>
   );
