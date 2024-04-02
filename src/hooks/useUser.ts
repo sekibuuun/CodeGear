@@ -42,7 +42,7 @@ function useUser() {
     try {
       const { error } = await supabase.auth.signOut();
       if (!error) {
-        navigate("/");
+        navigate("/CodeGear");
         toast.success("Signed out successfully");
       }
     } catch (error: any) {
