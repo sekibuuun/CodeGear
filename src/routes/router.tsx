@@ -8,14 +8,15 @@ import { useUser } from "@/hooks/useUser";
 
 const Router: React.FC = () => {
   const { session } = useUser();
+  const basePath = "/CodeGear";
   return (
     <Routes>
-      <Route path="/CodeGear" element={<Top />} />
+      <Route path={basePath} element={<Top />} />
       {session ? (
-        <Route path="/CodeGear/users/:id" element={<Mypage />} />
+        <Route path={`/${basePath}/users/:id`} element={<Mypage />} />
       ) : (
         <Route
-          path="/CodeGear/users/:id"
+          path={`/${basePath}/users/:id`}
           element={<Navigate to="/CodeGear" replace />}
         />
       )}

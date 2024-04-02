@@ -11,12 +11,13 @@ const Icon: React.FC<{
   session: Session | undefined;
   fallback: string;
 }> = ({ src, session, fallback }) => {
+  const basePath = "/CodeGear";
   return (
     <div>
       {session ? (
         <Link
           key={session.user.id}
-          to={`/CodeGear/users/${session.user.id}`}
+          to={`/${basePath}/users/${session.user.id}`}
           state={{ user: session.user }}
         >
           <ProfileImg src={src} fallback={fallback} />
