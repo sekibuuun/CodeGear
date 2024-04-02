@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Title: React.FC = () => {
   return (
-    <Link to="/" className="text-2xl">
+    <Link to="/CodeGear" className="text-2xl">
       CodeGear
     </Link>
   );

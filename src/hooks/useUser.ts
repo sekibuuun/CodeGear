@@ -27,6 +27,7 @@ function useUser() {
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "github",
+        options: { redirectTo: "https://sekibuuun.github.io/CodeGear/" },
       });
       if (!error) {
         toast.success("Signed in successfully");
