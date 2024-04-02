@@ -12,10 +12,10 @@ const Router: React.FC = () => {
     <Routes>
       <Route path="/CodeGear" element={<Top />} />
       {session ? (
-        <Route path="/users/:id" element={<Mypage />} />
+        <Route path="/CodeGear/users/:id" element={<Mypage />} />
       ) : (
         <Route
-          path="/users/:id"
+          path="/CodeGear/users/:id"
           element={<Navigate to="/CodeGear" replace />}
         />
       )}
