@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Session } from "@supabase/supabase-js";
 
@@ -8,6 +9,7 @@ import toast from "react-hot-toast";
 
 function useUser() {
   const [session, setSession] = useState<Session | null>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -39,6 +41,7 @@ function useUser() {
     try {
       const { error } = await supabase.auth.signOut();
       if (!error) {
+        navigate("/");
         toast.success("Signed out successfully");
       }
     } catch (error: any) {
