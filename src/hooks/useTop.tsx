@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { socials } from "../sns";
-import { Social } from "../types";
+import { Social } from "../types/types";
 
 const useTop = () => {
   const [userId, setUserId] = useState<string>("");

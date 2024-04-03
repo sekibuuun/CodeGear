@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Social } from "../types";
+import { Social } from "../types/types";
 
 import { Button } from "@/components/ui/button";
 import {

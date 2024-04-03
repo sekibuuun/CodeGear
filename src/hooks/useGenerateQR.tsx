@@ -12,7 +12,7 @@ import QRCodeStyling, {
   Options,
 } from "qr-code-styling-2";
 
-import { Social } from "../types";
+import { Social } from "../types/types";
 
 type GenerateQRProps = {
   url: string;
