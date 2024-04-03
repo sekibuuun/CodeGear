@@ -3,7 +3,7 @@ import Instagram from "./assets/Instagram.svg";
 import Qiita from "./assets/Qiita.png";
 import X from "./assets/X.png";
 import Zenn from "./assets/Zenn.svg";
-import { Social } from "./types";
+import { Social } from "./types/types";
 
 const socials: Social[] = [
   {
