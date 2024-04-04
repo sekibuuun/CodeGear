@@ -17,7 +17,7 @@ const Icon: React.FC<{
       {session ? (
         <Link
           key={session.user.id}
-          to={`/${basePath}/users/${session.user.id}`}
+          to={`${basePath}/users/${session.user.id}`}
           state={{ user: session.user }}
         >
           <ProfileImg src={src} fallback={fallback} />

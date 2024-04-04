@@ -13,11 +13,11 @@ const Router: React.FC = () => {
     <Routes>
       <Route path={basePath} element={<Top />} />
       {session ? (
-        <Route path={`/${basePath}/users/:id`} element={<Mypage />} />
+        <Route path={`${basePath}/users/:id`} element={<Mypage />} />
       ) : (
         <Route
-          path={`/${basePath}/users/:id`}
-          element={<Navigate to="/CodeGear" replace />}
+          path={`${basePath}/users/:id`}
+          element={<Navigate to={`${basePath}`} replace />}
         />
       )}
     </Routes>
