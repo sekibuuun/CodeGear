@@ -92,9 +92,13 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
           </Button>
         </div>
       </div>
-      <Button className="bg-gray-800" onClick={saveQR}>
-        Save
-      </Button>
+      {session && (
+        <div className="flex justify-center">
+          <Button className="bg-gray-800" onClick={saveQR}>
+            Save
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
