@@ -13,7 +13,15 @@ const Router: React.FC = () => {
     <Routes>
       <Route path={basePath} element={<Top />} />
       {session ? (
-        <Route path={`${basePath}/users/:id`} element={<Mypage />} />
+        <Route
+          path={`${basePath}/users/:id`}
+          element={
+            <Mypage
+              id={session.user.id}
+              name={session.user.user_metadata.name}
+            />
+          }
+        />
       ) : (
         <Route
           path={`${basePath}/users/:id`}
