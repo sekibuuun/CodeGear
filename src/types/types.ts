@@ -4,3 +4,8 @@ export interface Social {
   logo: string | null;
   color: string;
 }
+
+export type GenerateQRProps = {
+  url: string;
+  social: Social;
+};
