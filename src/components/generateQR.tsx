@@ -40,8 +40,10 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
     }
 
     // 画像のURLを取得
-    const { data } = supabase.storage.from("QRcode_img").getPublicUrl(filePath);
-    const imageUrl = data.publicUrl;
+    const { data } = await supabase.storage
+      .from("QRcode_img")
+      .getPublicUrl(filePath);
+    const imageUrl = data?.publicUrl;
 
     // 画像のURLをDBに保存
     const { error: databaseError } = await supabase.from("qr_codes").insert({
