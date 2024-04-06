@@ -14,21 +14,29 @@ export type Database = {
           qr_code_id: number;
           qr_code_image: string;
           qr_code_type: string;
-          user_id: number;
+          user_id: string;
         };
         Insert: {
           qr_code_id?: number;
           qr_code_image: string;
           qr_code_type: string;
-          user_id: number;
+          user_id: string;
         };
         Update: {
           qr_code_id?: number;
           qr_code_image?: string;
           qr_code_type?: string;
-          user_id?: number;
+          user_id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "qr_codes_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       users: {
         Row: {
