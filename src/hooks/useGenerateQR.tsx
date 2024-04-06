@@ -95,6 +95,7 @@ const useGenerateQR = ({ url, social }: GenerateQRProps) => {
     ref,
     options,
     fileExt,
+    qrCode,
     onDataChange,
     onExtensionChange,
     onDownloadClick,
