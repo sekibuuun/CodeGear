@@ -9,3 +9,8 @@ export type GenerateQRProps = {
   url: string;
   social: Social;
 };
+
+export type QRData = {
+  qr_code_type: string;
+  qr_code_image: string;
+}[];
