@@ -27,13 +27,20 @@ import {
 import { useTop } from "@/hooks/useTop";
 
 const Top: React.FC = () => {
+  const topHooks = useTop();
   // フォームのルールを定義
-  const formSchema = z.object({
-    URL: z.string(),
-    userId: z.string().min(1, {
-      message: "User ID must be at least 1 character.",
-    }),
-  });
+  const formSchema =
+    topHooks.social.service !== "None"
+      ? z.object({
+          URL: z.string(),
+          userId: z.string().min(1, {
+            message: "User ID must be at least 1 character.",
+          }),
+        })
+      : z.object({
+          URL: z.string(),
+          userId: z.string(),
+        });
 
   // フォームの初期値とバリデーションルールを設定
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,8 +51,6 @@ const Top: React.FC = () => {
       userId: "",
     },
   });
-
-  const topHooks = useTop();
 
   // フォームの送信時に実行
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -76,6 +81,7 @@ const Top: React.FC = () => {
           </div>
           <div className="flex flex-col gap-3">
             <FormField
+              control={form.control}
               name="URL"
               render={() => (
                 <FormItem>
@@ -85,8 +91,10 @@ const Top: React.FC = () => {
                       placeholder="Enter your URL"
                       aria-label="url"
                       type="text"
-                      value={`${topHooks.social.url || topHooks.emptyUrl}${topHooks.userId || ""}`}
-                      onChange={(e) => topHooks.urlHandler(e.target.value)}
+                      value={`${topHooks.social.url || topHooks.emptyUrl}${topHooks.userId}`}
+                      onChange={(e) => {
+                        topHooks.urlHandler(e.target.value);
+                      }}
                       disabled={topHooks.isInputUrlDisabled}
                     />
                   </FormControl>
