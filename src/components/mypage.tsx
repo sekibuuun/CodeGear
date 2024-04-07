@@ -13,7 +13,7 @@ const Mypage: React.FC<{
       <div className="text-2xl font-bold my-3">{name}&apos;s QRCode</div>
       <Suspense fallback={<div>Loading...</div>}>
         <div className="flex flex-col md:flex-row md:flex-wrap">
-          {QRData.map((qr, index) => (
+          {QRData?.map((qr, index) => (
             <div key={index} className="w-full md:w-1/2 lg:w-1/3 p-2">
               <p className="flex justify-center text-xl font-bold">
                 {qr.qr_code_type}

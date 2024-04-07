@@ -10,7 +10,7 @@ export type GenerateQRProps = {
   social: Social;
 };
 
-export type QRData = {
+export type QRDataType = {
   qr_code_type: string;
   qr_code_image: string;
 }[];

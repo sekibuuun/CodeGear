@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { supabase } from "@/lib/supabase-client";
-import { QRData } from "@/types/types";
+import { QRDataType } from "@/types/types";
 
 function useQRData(id: string) {
-  const [QRData, setQRData] = useState<QRData>([]);
+  const [QRData, setQRData] = useState<QRDataType | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
