@@ -1,5 +1,7 @@
 import React from "react";
 
+import toast, { Toaster } from "react-hot-toast";
+
 import { GenerateQRProps } from "../types/types";
 
 import { Button } from "@/components/ui/button";
@@ -24,7 +26,7 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
   const saveQR = async () => {
     const file = await generateQRHooks.qrCode.getRawData(); // QRコードのデータを取得
     if (!file) {
-      console.error("Failed to generate QR code data.");
+      toast.error("Failed to get QR code image.");
       return;
     }
     const filePath = `${social.service}/${session?.user.id}`; // useTopからSNSを取得し、pathにユーザーIDを追加
@@ -36,7 +38,7 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
         upsert: true,
       }); // ファイルをストレージにアップロード
     if (error) {
-      console.error("Failed to upload QR code image.");
+      toast.error("Failed to upload QR code image.");
     }
 
     // 画像のURLを取得
@@ -46,22 +48,21 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
     const imageUrl = data?.publicUrl;
 
     // 画像のURLをDBに保存
-    const { error: databaseError } = await supabase.from("qr_codes").insert({
+    await supabase.from("qr_codes").insert({
       user_id: session?.user.id,
       qr_code_type: social.service,
       qr_code_image: imageUrl,
     });
-    if (databaseError) {
-      console.error("Failed to upload QR code image.");
-    }
+    toast.success("QR code saved successfully.");
   };
   return (
     <div className="QRCode">
+      <Toaster />
       <div className="flex justify-center">
         <div ref={generateQRHooks.ref} />
       </div>
       <div className="flex flex-col gap-5">
-        <div className="flex justify-center">
+        <div className="flex flex-col gap-3 justify-center">
           <Button asChild variant="link" className="p-0">
             <a
               href={generateQRHooks.options.data}
@@ -71,6 +72,13 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
               {generateQRHooks.options.data}
             </a>
           </Button>
+          {session && (
+            <div className="flex justify-center">
+              <Button className="bg-gray-800 w-[300px] px-2.5" onClick={saveQR}>
+                QR Save
+              </Button>
+            </div>
+          )}
         </div>
         <div className="flex gap-5">
           <Select
@@ -94,13 +102,6 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
           </Button>
         </div>
       </div>
-      {session && (
-        <div className="flex justify-center">
-          <Button className="bg-gray-800" onClick={saveQR}>
-            Save
-          </Button>
-        </div>
-      )}
     </div>
   );
 };
