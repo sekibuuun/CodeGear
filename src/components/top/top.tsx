@@ -117,9 +117,6 @@ const Top: React.FC = () => {
               type="submit"
               className="flex-none bg-gray-800"
               aria-label="Generate QR code"
-              onClick={() => {
-                console.log("clicked");
-              }}
             >
               Generate QR
             </Button>
