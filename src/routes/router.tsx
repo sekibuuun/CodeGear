@@ -2,8 +2,8 @@ import React from "react";
 
 import { Route, Routes, Navigate } from "react-router-dom";
 
-import { Mypage } from "@/components/mypage";
-import { Top } from "@/components/top";
+import { Mypage } from "@/components/mypage/mypage";
+import { Top } from "@/components/top/top";
 import { useUser } from "@/hooks/useUser";
 
 const Router: React.FC = () => {
