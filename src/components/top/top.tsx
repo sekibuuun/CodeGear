@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { GenerateQR } from "./generateQR";
-import { socials } from "../sns";
+import { socials } from "../../sns";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,26 +25,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useTop } from "@/hooks/useTop";
+import { createFormSchema } from "@/lib/formValidation";
 
 const Top: React.FC = () => {
   const topHooks = useTop();
-  // フォームのルールを定義
-  const formSchema =
-    topHooks.social.service !== "None"
-      ? z.object({
-          URL: z.string(),
-          userId: z.string().min(1, {
-            message: "User ID must be at least 1 character.",
-          }),
-        })
-      : z.object({
-          URL: z.string(),
-          userId: z.string(),
-        });
+  const formSchema = createFormSchema(topHooks.social);
 
-  // フォームの初期値とバリデーションルールを設定
   const form = useForm<z.infer<typeof formSchema>>({
-    // 外部のバリエーションライブラリを使う場合は、resolver に渡す
     resolver: zodResolver(formSchema),
     defaultValues: {
       URL: "",
@@ -52,7 +39,6 @@ const Top: React.FC = () => {
     },
   });
 
-  // フォームの送信時に実行
   function onSubmit(values: z.infer<typeof formSchema>) {
     topHooks.generateQRcode(topHooks.social, values.userId);
     form.reset();

@@ -1,8 +1,8 @@
 import React from "react";
 
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
-import { GenerateQRProps } from "../types/types";
+import { GenerateQRProps } from "../../types/types";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { useGenerateQR } from "@/hooks/useGenerateQR";
 import { useUser } from "@/hooks/useUser";
-import { supabase } from "@/lib/supabase-client";
+import { saveQR } from "@/lib/saveQR";
 
 const GenerateQR: React.FC<GenerateQRProps> = ({
   url,
@@ -23,38 +23,6 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
   const generateQRHooks = useGenerateQR({ url, social });
   const { session } = useUser();
 
-  const saveQR = async () => {
-    const file = await generateQRHooks.qrCode.getRawData(); // QRコードのデータを取得
-    if (!file) {
-      toast.error("Failed to get QR code image.");
-      return;
-    }
-    const filePath = `${social.service}/${session?.user.id}`; // useTopからSNSを取得し、pathにユーザーIDを追加
-
-    const { error } = await supabase.storage
-      .from("QRcode_img")
-      .upload(filePath, file, {
-        cacheControl: "3600",
-        upsert: true,
-      }); // ファイルをストレージにアップロード
-    if (error) {
-      toast.error("Failed to upload QR code image.");
-    }
-
-    // 画像のURLを取得
-    const { data } = await supabase.storage
-      .from("QRcode_img")
-      .getPublicUrl(filePath);
-    const imageUrl = data?.publicUrl;
-
-    // 画像のURLをDBに保存
-    await supabase.from("qr_codes").insert({
-      user_id: session?.user.id,
-      qr_code_type: social.service,
-      qr_code_image: imageUrl,
-    });
-    toast.success("QR code saved successfully.");
-  };
   return (
     <div className="QRCode">
       <Toaster />
@@ -74,7 +42,10 @@ const GenerateQR: React.FC<GenerateQRProps> = ({
           </Button>
           {session && (
             <div className="flex justify-center">
-              <Button className="bg-gray-800 w-[300px] px-2.5" onClick={saveQR}>
+              <Button
+                className="bg-gray-800 w-[300px] px-2.5"
+                onClick={() => saveQR(generateQRHooks.qrCode, session, social)}
+              >
                 QR Save
               </Button>
             </div>
