@@ -13,10 +13,12 @@
 
 ## 使用技術
 
-- 大枠
-  - Vite
-  - React
-  - TypeScript
+- フロントエンド
+  - Vite + React + TypeScript
+- バックエンド
+  - Supabase
+- 認証
+  - GitHub Auth (Supabase)
 - QRコード生成
   - qr-code-styling-2
 - UI
@@ -30,4 +32,7 @@
 ## デプロイ先
 
 ![CodeGear](CodeGear.png)
-[https://sekibuuun.github.io/CodeGear/](https://sekibuuun.github.io/CodeGear/)
+
+[サイト](https://sekibuuun.github.io/CodeGear/)
+
+[スライド](https://www.canva.com/design/DAF_qwPiRZ4/Obw0SJnr85u4m8LIijNNZA/edit?utm_content=DAF_qwPiRZ4&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
